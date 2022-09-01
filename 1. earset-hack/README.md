@@ -1,22 +1,3 @@
-# Set up
-## 1. Compile `poc.c`
-- Command
-   ```bash
-   gcc -o poc poc.c -lbluetooth 
-   ```
-   
-## 2. Convert `raw` file to `wav` file
-- Command
-   ```bash
-   sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
-   ```   
-## 3. Convert `wav` file to `raw` file
-- Command
-   ```bash
-   sox --bits 16 --encoding signed-integer --endian little [in.wav] [out.raw]
-   ```
-
-
 # File info
 - btScan.py
   - Locate the Bluetooth device nearby.
@@ -51,4 +32,22 @@
 6. And then if you recieve a some data, you have to convert file from `raw` file to `wav`file
    ```bash
    sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
+   ```
+   
+# Appendix
+### 1. Compile `poc.c`
+- Command
+   ```bash
+   gcc -o poc poc.c -lbluetooth 
+   ```
+   
+### 2. Convert `raw` file to `wav` file
+- Command
+   ```bash
+   sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
+   ```   
+### 3. Convert `wav` file to `raw` file
+- Command
+   ```bash
+   sox --bits 16 --encoding signed-integer --endian little [in.wav] [out.raw]
    ```
