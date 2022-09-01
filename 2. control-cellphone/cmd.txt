@@ -1,0 +1,28 @@
+AT+COPS?\r\n   # Telecom company ( SKTelecom )
+AT+CGMI\r\n   # Device Company ( SAMSUNG )
+AT+CGMM\r\n   # Device Model  ( SHV-210S )
+AT+CNUN\r\n   # User PhoneNumber ( 01021728008 )
+AT+CPBS=?\r\n # Return :  "DC", "EN", "FD", "LD", "MC", "MT", "ON", "RC", "SM", "TA"
+			  " DC - Dialled call list\n",
+                          " EN - Emergency number list\n",
+                          " FD - SIM fix dialing list\n",
+                          " LD - SIM last dialing list\n",
+                          " MC - ME missed call list\n",
+                          " MT - ME + SIM conbined list\n",
+                          " ON - SIM o ME own number list\n",
+                          " RC - ME received calls list\n",
+                          " SM - SIM phonebook list\n",
+                          " TA - TA phonebook list\n"
+
+AT+CPAS\r\n  # Phone Activity Status  
+ 0 ready (allow commands from TA/TE)
+ 1 unavailable (does not allow commands)
+ 2 unknown
+ 3 ringing (ringer is active)
+ 4 call in progress
+ 5 asleep (low functionality) 
+
+ATA\r\n  # Answer a Call
+AT+CHUP\r\n  # Disconnect Call
+ATD123123\r\n  # Dial phone
+ATDL\r\n  # Redial..
