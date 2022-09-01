@@ -1,2 +1,2 @@
 # bluetooth-hack
-- Detail (ver. Kor): [Link](https://blackcon.tistory.com/50?category=228489)
+- Detail (ver. Kor): [Link](https://github.com/blackcon/bluetooth-hack/blob/main/Bluetooth%20by%20jh.pdf)
